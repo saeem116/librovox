@@ -52,7 +52,7 @@
 
   /* Warm Literary Backgrounds */
   --bg-primary: #f8f4e9;
-  --bg-secondary: #f3e4c7;
+  --bg-secondary: #b4a3c746 !important;
   --bg-tertiary: #fff6e5;
   --bg-card: #ffffff;
 
@@ -62,9 +62,9 @@
   --text-muted: #222c37;
 
   /* Warm Accent */
-  --accent-warm: #212a3b;
-  --accent-warm-hover: #3d485e;
-  --accent-light: #fff6e5;
+  --accent-warm: #4a3b5b;
+  --accent-warm-hover: #7f649f;
+  --accent-light: #d1a8ff !important;
 
   /* Semantic Colors */
   --success: #7c9a82;
@@ -215,7 +215,7 @@
     @apply relative z-20 flex flex-col justify-center items-center p-7;
   }
   .form-btn {
-    @apply !w-full h-14 rounded-[10px] bg-[#663820] cursor-pointer hover:bg-[#7a4528] text-xl text-white font-bold transition-colors;
+    @apply !w-full h-14 rounded-[10px] bg-[#342c61] cursor-pointer hover:!bg-[#b4a3c7] text-xl !text-white hover:!text-[#000000] font-bold transition-colors;
     font-family: "IBM Plex Serif", serif;
   }
   .loading-wrapper {
@@ -629,7 +629,7 @@
     }
   }
   .voice-selector-option-selected {
-    @apply bg-[var(--accent-light)] border-[var(--accent-warm)];
+    @apply !bg-[var(--accent-light)] !border-[var(--accent-warm)];
   }
   .voice-selector-option-default {
     @apply bg-white;
@@ -700,7 +700,7 @@
     }
   }
   .upload-dropzone-icon {
-    @apply w-[48px] h-[48px] mb-2 text-[#8B7355];
+    @apply w-[48px] h-[48px] mb-2 text-[#b4a3c7];
   }
   .upload-dropzone-text {
     @apply text-[#777] text-lg font-medium text-center;

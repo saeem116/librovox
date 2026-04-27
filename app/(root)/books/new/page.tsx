@@ -1,3 +1,4 @@
+"use client";
 import UploadForm from "@/components/UploadForm";
 
 const page = () => {

@@ -18,12 +18,15 @@ const HeroSection = () => {
             </p>
             <Link
               href="/books/new"
-              className="library-cta-primary mt-4 flex items-center justify-center"
+              className="group ... library-cta-primary mt-4 flex items-center justify-center"
             >
-              <span className="text-3xl text-[#000000] font-light mb-1 mr-2">
+              <span className="text-3xl text-[#000000] group-hover:text-white font-light mb-1 mr-2">
                 +
               </span>
-              <span className="text-[#000000]">Add new book</span>
+
+              <span className="text-black group-hover:text-white">
+                Add new book
+              </span>
             </Link>
           </div>
 
