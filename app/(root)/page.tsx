@@ -7,7 +7,7 @@ const page = () => {
     <main className="wrapper container">
       <HeroSection />
 
-      <div className="library-books-grid">
+      <div className="library-books-grid mt-8">
         {sampleBooks.map((book) => (
           <BookCard
             key={book._id}
