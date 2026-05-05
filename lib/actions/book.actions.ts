@@ -1,15 +1,66 @@
 import { connectToDatabase } from "@/database/mongoose";
-import { CreateBook } from "@/types";
-import { generateSlug } from "../utils";
+import { CreateBook, TextSegment } from "@/types";
+import { generateSlug, serializeData } from "../utils";
+import Book from "@/database/models/book.model";
+import BookSegment from "@/database/models/book-segment.model";
 
 export const createBook = async (data: CreateBook) => {
   try {
     await connectToDatabase();
 
     const slug = generateSlug(data.title);
+    const existingBook = await Book.findOne({ slug }).lean();
+
+    if (existingBook) {
+      return {
+        success: true,
+        data: serializeData(existingBook),
+        alreadyExists: true,
+      };
+    }
+
+    const book = await Book.create({ ...data, slug, totalSegments: 0 });
+
+    return { success: true, data: serializeData(book) };
+
+    // Further logic for creating the book...
   } catch (e) {
     console.error("Error creating book:", e);
 
     return { success: false, error: "Failed to create book" };
+  }
+};
+
+export const saveBookSegments = async (
+  bookId: string,
+  clerkid: string,
+  segments: TextSegment[],
+) => {
+  try {
+    await connectToDatabase();
+
+    console.log("Saving book segments to database...");
+
+    const segmentsToInsert = segments.map(
+      ({ text, segmentIndex, pageNumber, wordCount }) => ({
+        clerkid,
+        bookId,
+        content: text,
+        segmentIndex,
+        pageNumber,
+        wordCount,
+      }),
+    );
+
+    await BookSegment.insertMany(segmentsToInsert);
+    await Book.findByIdAndUpdate(bookId, { totalSegments: segments.length });
+    console.log("Book segments saved successfully");
+    return { success: true, data: { segmentsCreated: segments.length } };
+  } catch (e) {
+    console.error("Error saving book segments:", e);
+
+    await BookSegment.deleteMany({ bookId });
+    await Book.findByIdAndDelete(bookId);
+    console.log("deleted book segments and book due to failed segments");
   }
 };
