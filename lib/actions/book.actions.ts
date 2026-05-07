@@ -15,9 +15,11 @@ export const checkBookExists = async (title: string) => {
     if (existingBook) {
       return {
         exists: true,
-        data: serializeData(existingBook),
+        book: serializeData(existingBook),
       };
     }
+
+    return { exists: false };
   } catch (e) {
     console.error("Error checking book existence:", e);
     return {
@@ -85,5 +87,6 @@ export const saveBookSegments = async (
     await BookSegment.deleteMany({ bookId });
     await Book.findByIdAndDelete(bookId);
     console.log("deleted book segments and book due to failed segments");
+    return { success: false, error: "Failed to save book segments" };
   }
 };
