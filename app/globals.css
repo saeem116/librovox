@@ -690,7 +690,7 @@
     }
   }
   .upload-dropzone-uploaded {
-    @apply bg-[#f3e4c7];
+    @apply bg-[#B4A3C7];
 
     .upload-dropzone-text {
       @apply text-[#663820];
@@ -700,7 +700,7 @@
     }
   }
   .upload-dropzone-icon {
-    @apply w-[48px] h-[48px] mb-2 text-[#b4a3c7];
+    @apply w-[48px] h-[48px] mb-2 text-[#B4A3C7];
   }
   .upload-dropzone-text {
     @apply text-[#777] text-lg font-medium text-center;

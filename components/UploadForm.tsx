@@ -37,13 +37,8 @@ import { upload } from "@vercel/blob/client";
 
 const UploadForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
   const { userId } = useAuth();
   const router = useRouter();
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   const form = useForm<BookUploadFormValues>({
     resolver: zodResolver(UploadSchema),
@@ -132,6 +127,9 @@ const UploadForm = () => {
 
       if (!book.success) {
         toast.error((book.error as string) || "Failed to create book");
+        if ("isBillingError" in book && book.isBillingError) {
+          router.push("/subscriptions");
+        }
         return;
       }
 
@@ -163,8 +161,6 @@ const UploadForm = () => {
       setIsSubmitting(false);
     }
   };
-
-  if (!isMounted) return null;
 
   return (
     <>
